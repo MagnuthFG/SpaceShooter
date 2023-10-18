@@ -73,7 +73,8 @@ Material:
     - _Pann_Speed: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Texture_Scale: 10
+    - _Texture_Scale: 2
     - _Vertical_Direction: 1
-    m_Colors: []
+    m_Colors:
+    - _Colour: {r: 0, g: 0.008333325, b: 0.05, a: 1}
   m_BuildTextureStacks: []

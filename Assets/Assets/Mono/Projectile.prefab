@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 805165981182189824}
   - component: {fileID: 1667318909133671343}
   - component: {fileID: 2721935413232221071}
+  - component: {fileID: -6557371828744956296}
   - component: {fileID: 3775744784126672880}
-  - component: {fileID: 6308807188909484860}
-  m_Layer: 0
+  - component: {fileID: 2072669333403197449}
+  - component: {fileID: 4189203770637226669}
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +87,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!50 &-6557371828744956296
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023737420475661055}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &3775744784126672880
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &6308807188909484860
+--- !u!114 &2072669333403197449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,6 +158,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2023737420475661055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62c5ac925b4ef16449dcf6148f354448, type: 3}
+  m_Script: {fileID: 11500000, guid: 069fdb199d8228e48b2188104abc163e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 6
+  _maxY: 7.68
+--- !u!114 &4189203770637226669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023737420475661055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1742d5531709e04eb3bda5e607a2d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

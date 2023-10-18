@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace SpaceShooter.Mono
 {
-    public class ProjectileMove : MonoBehaviour
+    public class EnemyMove : MonoBehaviour
     {
         [Header("Movement Settings")]
-        [SF] private float _speed = 6.0f;
-        [SF] private float _maxY  = 6.4f;
+        [SF] private float _speed  =  6.0f;
+        [SF] private float _torque =  45.0f;
+        [SF] private float _minY   = -6.4f;
 
         private GameObject _gameObject = null;
         private Transform  _transform  = null;
@@ -22,13 +23,19 @@ namespace SpaceShooter.Mono
 // MOVEMENT
 
         private void FixedUpdate(){
-            var position    = _transform.position;
-                position.y += _speed * Time.deltaTime;
+            var deltaTime = Time.deltaTime;
 
-            if (position.y > _maxY)
+            var position    = _transform.position;
+                position.y -= _speed * deltaTime;
+
+            if (position.y < _minY)
                 _gameObject.SetActive(false);
 
-            _transform.position = position;
+            var rotation    = _transform.eulerAngles;
+                rotation.z -= _torque * deltaTime;
+
+            _transform.position    = position;
+            _transform.eulerAngles = rotation;
         }
 
     }

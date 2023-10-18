@@ -6,22 +6,27 @@ namespace SpaceShooter.Mono
 {
     public class PlayerShoot : MonoBehaviour
     {
+        [Header("Shoot Settings")]
         [SF] private float _delay = 0.1f;
         [SF] private Vector3 _offset = new Vector3(0, 0.2f, 0);
-        [SF] private GameObject _projectile = null;
         [SF] private InputActionReference _input = null;
 
+        [Header("Pool Settings")]
+        [SF] private int _poolGrowth = 20;
+        [SF] private int _poolSize   = 100;
+        [SF] private GameObject _projectile = null;
+
         private float _nextTime = 0;
-        private Transform _transform = null;
-        private ComponentPool<ProjectileMove> _pool = null;
+        private Transform  _transform = null;
+        private ObjectPool _pool      = null;
 
 // INITIALISATION
 
         private void Awake(){
-            _transform = transform;
+            _transform = this.transform;
             
-            _pool = new ComponentPool<ProjectileMove>(
-                _projectile, 5, 10
+            _pool = new ObjectPool(
+                _projectile, _poolGrowth, _poolSize
             );
             _pool.Populate();
         }
@@ -36,7 +41,7 @@ namespace SpaceShooter.Mono
             _input.action.Disable();
         }
 
-// SHOOTING
+// INPUT EVENT
 
         private void OnInput(InputAction.CallbackContext ctx){
             var time = Time.time;
@@ -44,9 +49,10 @@ namespace SpaceShooter.Mono
             if (time < _nextTime) return;
             _nextTime = time + _delay;
 
+            var position = _transform.position + _offset;
+
             var projectile = _pool.Get();
-                projectile?.gameObject.SetActive(true);
-                projectile?.Fire(_transform.position + _offset);
+                projectile.transform.position = position;
         }
 
     }
