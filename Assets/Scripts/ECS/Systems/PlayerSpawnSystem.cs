@@ -9,15 +9,22 @@ namespace SpaceShooter.ECS
         protected override void OnUpdate(){
             var resources = ResourceManager.Instance;
 
-            var factory = new PlayerFactory(
+            var playerFactory = new PlayerFactory(
                 resources?.QuadMesh,
                 resources?.PlayerMaterial
             );
-            factory.Create(
+            playerFactory.Create(
                 new float3(0, -5.12f, 0),
                 new float3(0, 0, 90 * Mathf.Deg2Rad)
             );
-            // Spawn HULL as well
+            var hullFactory = new HullFactory(
+                resources?.QuadMesh,
+                resources?.HullMaterial
+            );
+            hullFactory.Create(
+                new float3(0, -7.08f, 0),
+                new float3(0, 0, 90 * Mathf.Deg2Rad)
+            );
             Enabled = false;
         }
     }

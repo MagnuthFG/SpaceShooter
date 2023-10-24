@@ -249,6 +249,7 @@ MonoBehaviour:
   _playerMaterial: {fileID: 2100000, guid: cbe1689bf724ae1409824facce420e68, type: 2}
   _enemyMaterial: {fileID: 2100000, guid: 9b5878bb6c92996429203ef5b80047ae, type: 2}
   _projectileMaterial: {fileID: 0}
+  _hullMaterial: {fileID: 2100000, guid: 43100072f89a1b044b43bc76cee65d57, type: 2}
 --- !u!1001 &1020626355787371651
 PrefabInstance:
   m_ObjectHideFlags: 0
