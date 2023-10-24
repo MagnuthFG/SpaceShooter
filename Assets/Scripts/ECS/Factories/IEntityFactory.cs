@@ -5,6 +5,6 @@ namespace SpaceShooter.ECS
 {
     public interface IEntityFactory
     {
-        Entity Create(float3 position);
+        Entity Create(float3 position, float3 euler);
     }
 }
