@@ -8,7 +8,7 @@ namespace SpaceShooter.Mono
     {
         [Header("Shoot Settings")]
         [SF] private float _delay = 0.1f;
-        [SF] private Vector3 _offset = new Vector3(0, 0.2f, 0);
+        [SF] private Vector3 _offset = new Vector3(0, 0.4f, 0);
         [SF] private InputActionReference _input = null;
 
         [Header("Pool Settings")]

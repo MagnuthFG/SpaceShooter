@@ -1,11 +1,11 @@
 using Unity.Entities;
-using UnityEngine;
+using Unity.Mathematics;
 
 namespace SpaceShooter.ECS
 {
     public struct ShootSettingsComponent : IComponentData
     {
         public float Delay;
-        public Vector3 Offset;
+        public float3 Offset;
     }
 }

@@ -7,7 +7,7 @@ namespace SpaceShooter.Mono
     public class PlayerStrafe : MonoBehaviour
     {
         [SF] private float _stepDistance = 2.56f;
-        [SF] private float _maxDistance  = 7.68f; 
+        [SF] private float _maxDistance  = 10.24f;
         [SF] private InputActionReference _input = null;
 
         private Transform _transform = null;

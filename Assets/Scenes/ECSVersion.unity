@@ -250,6 +250,8 @@ MonoBehaviour:
   _enemyMaterial: {fileID: 2100000, guid: 9b5878bb6c92996429203ef5b80047ae, type: 2}
   _projectileMaterial: {fileID: 0}
   _hullMaterial: {fileID: 2100000, guid: 43100072f89a1b044b43bc76cee65d57, type: 2}
+  _strafeInput: {fileID: -8312125727268759102, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}
+  _shootInput: {fileID: 8486263050533997069, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}
 --- !u!1001 &1020626355787371651
 PrefabInstance:
   m_ObjectHideFlags: 0
