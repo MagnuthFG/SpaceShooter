@@ -21,7 +21,7 @@ namespace SpaceShooter.ECS
             // Add enemy related components here
 
             _manager.AddComponent<EnemyTag>(entity);
-            _manager.SetName(entity, "Enemy");
+            _manager.SetName(entity, "Asteroid");
 
             return entity;
         }

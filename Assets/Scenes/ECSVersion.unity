@@ -248,7 +248,7 @@ MonoBehaviour:
   _quadMesh: {fileID: -462981019419857548, guid: f3ce7527763f41f49b6342aeece22cae, type: 3}
   _playerMaterial: {fileID: 2100000, guid: cbe1689bf724ae1409824facce420e68, type: 2}
   _enemyMaterial: {fileID: 2100000, guid: 9b5878bb6c92996429203ef5b80047ae, type: 2}
-  _projectileMaterial: {fileID: 0}
+  _projectileMaterial: {fileID: 2100000, guid: fe7b53cf697c0474391f855ce9ea3aa3, type: 2}
   _hullMaterial: {fileID: 2100000, guid: 43100072f89a1b044b43bc76cee65d57, type: 2}
   _strafeInput: {fileID: -8312125727268759102, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}
   _shootInput: {fileID: 8486263050533997069, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}

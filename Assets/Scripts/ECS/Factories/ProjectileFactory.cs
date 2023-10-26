@@ -18,6 +18,9 @@ namespace SpaceShooter.ECS
 
             // Add collision
 
+            _manager.AddComponent<ProjectileTag>(entity);
+            _manager.SetName(entity, "Projectile");
+
             return entity;
         }
     }

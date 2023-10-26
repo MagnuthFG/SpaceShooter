@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SpaceShooter.ECS
 {
     [CreateAfter(typeof(PlayerSpawnSystem))]
-    public partial class ProjectileSpawnSystem : SystemBase
+    public partial class EnemySpawnSystem : SystemBase
     {
         private EntityManager _manager    = default;
         private EntityQuery _poolQuery    = default;
@@ -14,7 +14,7 @@ namespace SpaceShooter.ECS
 
         private float3 _position = new float3(0, 0, 2.56f);
         private float3 _rotation = new float3(0, 0, 90 * Mathf.Deg2Rad);
-        private ProjectileFactory _factory = null;
+        private EnemyFactory _factory = null;
 
 // INITIALISATION
 
@@ -26,17 +26,17 @@ namespace SpaceShooter.ECS
 
             _manager.AddComponentData(SystemHandle, 
                 new PoolSettingsComponent(){
-                    GrowthCount = 10,
+                    GrowthCount = 20,
                     MaxCount    = 100
                 }
             );
             _poolQuery = new EntityQueryBuilder(Allocator.Temp)
-                .WithAll<ProjectileTag>()
+                .WithAll<EnemyTag>()
                 .WithNone<SpawnedTag>()
                 .Build(this);
 
             _spawnedQuery = new EntityQueryBuilder(Allocator.Temp)
-                .WithAll<ProjectileTag>()
+                .WithAll<EnemyTag>()
                 .WithAll<SpawnedTag>()
                 .Build(this);
         }
@@ -44,9 +44,9 @@ namespace SpaceShooter.ECS
         protected override void OnStartRunning(){
             var resources = ResourceManager.Instance;
 
-            _factory = new ProjectileFactory(
+            _factory = new EnemyFactory(
                 resources.QuadMesh,
-                resources.ProjectileMaterial
+                resources.EnemyMaterial
             );
             var settings = _manager.GetComponentData
                 <PoolSettingsComponent>(SystemHandle);
@@ -56,7 +56,7 @@ namespace SpaceShooter.ECS
             }
         }
 
-// PROJECTILE SPAWNING
+// ENEMY SPAWNING
 
         protected override void OnUpdate(){
             if (_poolQuery.CalculateEntityCount() > 0) return;

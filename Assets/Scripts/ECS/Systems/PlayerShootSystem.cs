@@ -2,16 +2,16 @@ using UnityEngine.InputSystem;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
-using Unity.Mathematics;
-using UnityEngine;
 
 namespace SpaceShooter.ECS
 {
+    [UpdateAfter(typeof(ProjectileSpawnSystem)),
+     UpdateAfter(typeof(PlayerSpawnSystem))]
     public partial class PlayerShootSystem : SystemBase
     {
-        private EntityManager _manager       = default;
-        private EntityQuery _playerQuery     = default;
-        private EntityQuery _projectileQuery = default;
+        private EntityManager _manager   = default;
+        private EntityQuery _playerQuery = default;
+        private EntityQuery _bulletQuery = default;
 
         private InputActionReference _shootInput = null;
 
@@ -26,12 +26,13 @@ namespace SpaceShooter.ECS
             _playerQuery = new EntityQueryBuilder(Allocator.Temp)
                 .WithAll<ShootSettingsComponent>()
                 .WithAll<ShootInfoComponent>()
+                .WithAll<LocalTransform>()
                 .WithAll<PlayerTag>()
                 .Build(this);
 
-            _projectileQuery = new EntityQueryBuilder(Allocator.Temp)
-                .WithAll<ProjectileTag>()
+            _bulletQuery = new EntityQueryBuilder(Allocator.Temp)
                 .WithAll<LocalTransform>()
+                .WithAll<ProjectileTag>()
                 .WithNone<SpawnedTag>()
                 .Build(this);
         }
@@ -44,6 +45,8 @@ namespace SpaceShooter.ECS
             _shootInput.action.started  += ctx => OnInput(ctx);
             _shootInput.action.canceled += ctx => OnInput(ctx);
             _shootInput.action.Enable();
+
+            Enabled = false;
         }
 
         protected override void OnDestroy(){
@@ -52,43 +55,34 @@ namespace SpaceShooter.ECS
             _shootInput.action.started  -= OnInput;
             _shootInput.action.canceled -= OnInput;
             _shootInput.action.Disable();
-
-            Enabled = false;
         }
 
-// STRAFE INPUT
+// SHOOT INPUT
 
         private void OnInput(InputAction.CallbackContext ctx){
-            var players     = _playerQuery.ToEntityArray(Allocator.Temp);
-            var projectiles = _projectileQuery.ToEntityArray(Allocator.Temp);
+            var players = _playerQuery.ToEntityArray(Allocator.Temp);
+            var bullets = _bulletQuery.ToEntityArray(Allocator.Temp);
+            var player  = players[0];
+            var bullet  = bullets[0];
 
-            var infos = _playerQuery.ToComponentDataArray
-                <ShootInfoComponent>(Allocator.Temp);
+            var info     = _manager.GetComponentData<ShootInfoComponent>(player);
+            var settings = _manager.GetComponentData<ShootSettingsComponent>(player); 
+            var playerTransform = _manager.GetComponentData<LocalTransform>(player);
+            var bulletTransform = _manager.GetComponentData<LocalTransform>(bullet);
 
-            var settings = _playerQuery.ToComponentDataArray
-                <ShootSettingsComponent>(Allocator.Temp);
+            var time = (float)SystemAPI.Time.ElapsedTime;
+            if (info.NextShotTime > time) return;
 
-            var transforms = _projectileQuery.ToComponentDataArray
-                <LocalTransform>(Allocator.Temp);
+            info.NextShotTime = time + settings.Delay;
+            _manager.SetComponentData(player, info);
 
-            var time = SystemAPI.Time.ElapsedTime;
-
-            for (int i = 0; i < players.Length; i++){
-                var player  = players[i];
-                var setting = settings[i]; 
-                var info    = infos[i];
-
-                if (info.NextShotTime > time) continue;
-                info.NextShotTime = (float)time + setting.Delay;
-                _manager.SetComponentData(player, info);
-                
-                // Set projectile location
-                // Add spawned tag so it starts moving
-
-                Debug.Log("Shot Projectile");
-            }
+            bulletTransform.Position = playerTransform.Position + settings.Offset;
+            _manager.SetComponentData(bullet, bulletTransform);
+            
+            _manager.AddComponent<SpawnedTag>(bullet);
         }
 
         protected override void OnUpdate(){}// not running
+
     }
 }
