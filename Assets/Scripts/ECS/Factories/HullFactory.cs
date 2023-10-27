@@ -23,8 +23,6 @@ namespace SpaceShooter.ECS
 
             _manager.AddComponent<PostTransformMatrix>(entity);
             _manager.SetComponentData(entity, _scaleMatrix);
-            
-            // Add collision
 
             _manager.AddComponent<PlayerTag>(entity);
             _manager.SetName(entity, "Hull");

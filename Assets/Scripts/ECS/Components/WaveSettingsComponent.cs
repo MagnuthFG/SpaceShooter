@@ -3,8 +3,7 @@ using Unity.Mathematics;
 
 namespace SpaceShooter.ECS
 {
-    public struct WaveSettingsComponent : IComponentData
-    {
+    public struct WaveSettingsComponent : IComponentData {
         public float LaneWidth;
         public float FieldExtent;
         public float YStart;
