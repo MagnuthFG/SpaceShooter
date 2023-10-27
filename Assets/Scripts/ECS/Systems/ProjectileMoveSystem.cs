@@ -1,10 +1,11 @@
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     [UpdateAfter(typeof(ProjectileSpawnSystem))]
     public partial class ProjectileMoveSystem : SystemBase
     {
@@ -13,6 +14,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
 
@@ -34,6 +36,7 @@ namespace SpaceShooter.ECS
 
 // PROJECTILE MOVEMENT
 
+        [BurstCompile]
         protected override void OnUpdate(){
             var bullets = _bulletQuery.ToEntityArray(Allocator.Temp);
             if (bullets.Length == 0) return;

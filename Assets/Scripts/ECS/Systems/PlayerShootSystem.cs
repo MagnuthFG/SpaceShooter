@@ -2,10 +2,11 @@ using UnityEngine.InputSystem;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     [UpdateAfter(typeof(ProjectileSpawnSystem)),
      UpdateAfter(typeof(PlayerSpawnSystem))]
     public partial class PlayerShootSystem : SystemBase
@@ -18,6 +19,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
 
@@ -38,6 +40,7 @@ namespace SpaceShooter.ECS
                 .Build(this);
         }
 
+        [BurstCompile]
         protected override void OnStartRunning(){
             base.OnStartRunning();
 
@@ -50,6 +53,7 @@ namespace SpaceShooter.ECS
             Enabled = false;
         }
 
+        [BurstCompile]
         protected override void OnDestroy(){
             base.OnDestroy();
 
@@ -60,6 +64,7 @@ namespace SpaceShooter.ECS
 
 // SHOOT INPUT
 
+        [BurstCompile]
         private void OnInput(InputAction.CallbackContext ctx){
             var players = _playerQuery.ToEntityArray(Allocator.Temp);
             var bullets = _bulletQuery.ToEntityArray(Allocator.Temp);

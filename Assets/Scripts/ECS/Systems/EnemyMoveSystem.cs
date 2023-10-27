@@ -1,10 +1,11 @@
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     [UpdateAfter(typeof(EnemyWaveSystem))]
     public partial class EnemyMoveSystem : SystemBase
     {
@@ -13,6 +14,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
 
@@ -35,6 +37,7 @@ namespace SpaceShooter.ECS
 
 // ENEMY MOVEMENT
 
+        [BurstCompile]
         protected override void OnUpdate(){
             var enemies = _enemyQuery.ToEntityArray(Allocator.Temp);
             if (enemies.Length == 0) return;

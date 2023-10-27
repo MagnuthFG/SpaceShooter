@@ -2,10 +2,11 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
 using Unity.Mathematics;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     [UpdateAfter(typeof(EnemySpawnSystem))]
     public partial class EnemyWaveSystem : SystemBase
     {
@@ -17,6 +18,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
             
@@ -53,6 +55,7 @@ namespace SpaceShooter.ECS
                 .Build(this);
         }
 
+        [BurstCompile]
         protected override void OnDestroy(){
             base.OnDestroy();
 
@@ -64,6 +67,7 @@ namespace SpaceShooter.ECS
 
 // ENEMY WAVES
 
+        [BurstCompile]
         protected override void OnUpdate(){
             if (_spawnedQuery.CalculateEntityCount() > 0) return;
 

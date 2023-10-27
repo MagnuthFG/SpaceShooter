@@ -2,10 +2,11 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     //[CreateAfter(typeof(PlayerSpawnSystem))]
     public partial class EnemySpawnSystem : SystemBase
     {
@@ -19,6 +20,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
 
@@ -42,6 +44,7 @@ namespace SpaceShooter.ECS
                 .Build(this);
         }
 
+        [BurstCompile]
         protected override void OnStartRunning(){
             var resources = ResourceManager.Instance;
 
@@ -59,6 +62,7 @@ namespace SpaceShooter.ECS
 
 // ENEMY SPAWNING
 
+        [BurstCompile]
         protected override void OnUpdate(){
             if (_poolQuery.CalculateEntityCount() > 0) return;
                 

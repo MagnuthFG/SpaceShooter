@@ -1,12 +1,14 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     public partial class PlayerSpawnSystem : SystemBase
     {
+        [BurstCompile]
         protected override void OnStartRunning(){
             var resources = ResourceManager.Instance;
 
@@ -29,6 +31,6 @@ namespace SpaceShooter.ECS
             Enabled = false;
         }
 
-        protected override void OnUpdate(){}
+        protected override void OnUpdate(){}// not running
     }
 }

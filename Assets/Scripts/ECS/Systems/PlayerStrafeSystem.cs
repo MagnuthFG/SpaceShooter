@@ -3,10 +3,11 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
 using Unity.Mathematics;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     [UpdateAfter(typeof(PlayerSpawnSystem))]
     public partial class PlayerStrafeSystem : SystemBase
     {

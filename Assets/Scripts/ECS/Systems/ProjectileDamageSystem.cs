@@ -2,10 +2,11 @@ using Unity.Entities;
 using Unity.Rendering;
 using Unity.Collections;
 using Unity.Transforms;
+using Unity.Burst;
 
 namespace SpaceShooter.ECS
 {
-    [DisableAutoCreation]
+    [DisableAutoCreation][BurstCompile]
     //[CreateAfter(typeof(ProjectileSpawnSystem))]
     public partial class ProjectileDamageSystem : SystemBase
     {
@@ -15,6 +16,7 @@ namespace SpaceShooter.ECS
 
 // INITIALISATION
 
+        [BurstCompile]
         protected override void OnCreate(){
             base.OnCreate();
 
@@ -38,6 +40,7 @@ namespace SpaceShooter.ECS
 
 // PROJECTILE DAMAGE 
 
+        [BurstCompile]
         protected override void OnUpdate(){
             var bullets = _bulletQuery.ToEntityArray(Allocator.Temp);
             var enemies = _enemyQuery.ToEntityArray(Allocator.Temp);
@@ -48,11 +51,11 @@ namespace SpaceShooter.ECS
             var eBoundary = _enemyQuery.ToComponentDataArray
                 <WorldRenderBounds>(Allocator.Temp);
 
-            var bTransforms = _bulletQuery.ToComponentDataArray
-                <LocalTransform>(Allocator.Temp);
+            //var bTransforms = _bulletQuery.ToComponentDataArray
+            //    <LocalTransform>(Allocator.Temp);
 
-            var eTransforms = _enemyQuery.ToComponentDataArray
-                <LocalTransform>(Allocator.Temp);
+            //var eTransforms = _enemyQuery.ToComponentDataArray
+            //    <LocalTransform>(Allocator.Temp);
 
             for (int i = 0; i < bBoundary.Length; i++){
                 var bBounds = bBoundary[i];
@@ -65,14 +68,16 @@ namespace SpaceShooter.ECS
                         continue;
 
                     var enemy = enemies[j];
-                    var eTransform = eTransforms[j];
+                    //var eTransform = eTransforms[j];
+                    var eTransform = _manager.GetComponentData<LocalTransform>(enemy);
                         eTransform.Position.y = 0;
                         eTransform.Position.z = 2.56f;
 
                     _manager.SetComponentData(enemy, eTransform);
                     _manager.RemoveComponent<SpawnedTag>(enemy);
 
-                    var bTransform = bTransforms[i];
+                    //var bTransform = bTransforms[i];
+                    var bTransform = _manager.GetComponentData<LocalTransform>(bullet);
                         bTransform.Position.y = 0;
                         bTransform.Position.z = 2.56f;
 
