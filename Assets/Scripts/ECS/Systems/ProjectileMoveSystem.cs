@@ -4,6 +4,7 @@ using Unity.Collections;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     [UpdateAfter(typeof(ProjectileSpawnSystem))]
     public partial class ProjectileMoveSystem : SystemBase
     {

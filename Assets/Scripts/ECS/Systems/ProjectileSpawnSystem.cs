@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace SpaceShooter.ECS
 {
-    [CreateAfter(typeof(PlayerSpawnSystem))]
+    [DisableAutoCreation]
+    //[CreateAfter(typeof(PlayerSpawnSystem))]
     public partial class ProjectileSpawnSystem : SystemBase
     {
         private EntityManager _manager    = default;

@@ -16,8 +16,6 @@ namespace SpaceShooter.ECS
         public override Entity Create(float3 position, float3 euler){
             var entity = base.Create(position, euler);
 
-            // Add collision
-
             _manager.AddComponent<ProjectileTag>(entity);
             _manager.SetName(entity, "Projectile");
 

@@ -5,6 +5,7 @@ using Unity.Collections;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     [UpdateAfter(typeof(ProjectileSpawnSystem)),
      UpdateAfter(typeof(PlayerSpawnSystem))]
     public partial class PlayerShootSystem : SystemBase

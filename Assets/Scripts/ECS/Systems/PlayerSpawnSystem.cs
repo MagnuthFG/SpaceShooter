@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     public partial class PlayerSpawnSystem : SystemBase
     {
         protected override void OnStartRunning(){

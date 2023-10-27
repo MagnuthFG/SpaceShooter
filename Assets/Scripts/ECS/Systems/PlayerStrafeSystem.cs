@@ -6,6 +6,7 @@ using Unity.Mathematics;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     [UpdateAfter(typeof(PlayerSpawnSystem))]
     public partial class PlayerStrafeSystem : SystemBase
     {

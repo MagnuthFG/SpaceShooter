@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1228695806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1683139315}
   - component: {fileID: 1683139316}
+  - component: {fileID: 1683139317}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -252,6 +253,18 @@ MonoBehaviour:
   _hullMaterial: {fileID: 2100000, guid: 43100072f89a1b044b43bc76cee65d57, type: 2}
   _strafeInput: {fileID: -8312125727268759102, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}
   _shootInput: {fileID: 8486263050533997069, guid: c711c3dea2f1f164785ed817a4a66ac5, type: 3}
+--- !u!114 &1683139317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683139314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6c789d798ca234580ddec1a5f1ee6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1020626355787371651
 PrefabInstance:
   m_ObjectHideFlags: 0

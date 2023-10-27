@@ -4,6 +4,7 @@ using Unity.Collections;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     [UpdateAfter(typeof(EnemyWaveSystem))]
     public partial class EnemyMoveSystem : SystemBase
     {

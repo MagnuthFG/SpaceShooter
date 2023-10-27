@@ -5,7 +5,8 @@ using Unity.Transforms;
 
 namespace SpaceShooter.ECS
 {
-    [CreateAfter(typeof(ProjectileSpawnSystem))]
+    [DisableAutoCreation]
+    //[CreateAfter(typeof(ProjectileSpawnSystem))]
     public partial class ProjectileDamageSystem : SystemBase
     {
         private EntityManager _manager   = default; 

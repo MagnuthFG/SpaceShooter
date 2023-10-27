@@ -6,7 +6,8 @@ using SpaceShooter.Mono;
 
 namespace SpaceShooter.ECS
 {
-    [CreateAfter(typeof(EnemySpawnSystem))]
+    [DisableAutoCreation]
+    //[CreateAfter(typeof(EnemySpawnSystem))]
     public partial class EnemyDamageSystem : SystemBase
     {
         private EntityManager _manager   = default; 

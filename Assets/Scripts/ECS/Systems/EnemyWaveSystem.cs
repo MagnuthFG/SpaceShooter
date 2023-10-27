@@ -2,10 +2,10 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Collections;
 using Unity.Mathematics;
-//using UnityEngine;
 
 namespace SpaceShooter.ECS
 {
+    [DisableAutoCreation]
     [UpdateAfter(typeof(EnemySpawnSystem))]
     public partial class EnemyWaveSystem : SystemBase
     {
@@ -51,6 +51,15 @@ namespace SpaceShooter.ECS
                 .WithAll<EnemyTag>()
                 .WithAll<SpawnedTag>()
                 .Build(this);
+        }
+
+        protected override void OnDestroy(){
+            base.OnDestroy();
+
+            var info = _manager.GetComponentData
+                <WaveInfoComponent>(SystemHandle);
+
+            info.Stacks.Dispose();
         }
 
 // ENEMY WAVES
