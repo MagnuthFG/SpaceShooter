@@ -19,6 +19,7 @@ namespace SpaceShooter.ECS
             _systems.Add(world.CreateSystem<ProjectileMoveSystem>());
             _systems.Add(world.CreateSystem<ProjectileDamageSystem>());
             _systems.Add(world.CreateSystem<EnemyMoveSystem>());
+            _systems.Add(world.CreateSystem<EnemyHitSystem>());
             _systems.Add(world.CreateSystem<EnemyDamageSystem>());
             _systems.Add(world.CreateSystem<EnemyWaveSystem>());
 

@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Transforms;
-using Unity.Collections;
 using Unity.Burst;
+using Unity.Jobs;
 
 namespace SpaceShooter.ECS
 {
@@ -9,8 +9,10 @@ namespace SpaceShooter.ECS
     [UpdateAfter(typeof(EnemyWaveSystem))]
     public partial class EnemyMoveSystem : SystemBase
     {
+        private World _world = null;
         private EntityManager _manager  = default;
-        private EntityQuery _enemyQuery = default;
+
+        private EndSimulationEntityCommandBufferSystem.Singleton _esECB;
 
 // INITIALISATION
 
@@ -18,8 +20,11 @@ namespace SpaceShooter.ECS
         protected override void OnCreate(){
             base.OnCreate();
 
-            var world = World.DefaultGameObjectInjectionWorld;
-            _manager  = world.EntityManager;
+            _world   = World.DefaultGameObjectInjectionWorld;
+            _manager = _world.EntityManager;
+
+            _esECB = SystemAPI.GetSingleton
+                <EndSimulationEntityCommandBufferSystem.Singleton>();
 
             _manager.AddComponentData(SystemHandle,
                 new MoveSettingsComponent(){
@@ -28,32 +33,18 @@ namespace SpaceShooter.ECS
                     YLimit = -7.68f
                 }
             );
-            _enemyQuery = new EntityQueryBuilder(Allocator.Temp)
-                .WithAll<EnemyTag>()
-                .WithAll<SpawnedTag>()
-                .WithAll<LocalTransform>()
-                .Build(this);
         }
 
 // ENEMY MOVEMENT
 
         [BurstCompile]
         protected override void OnUpdate(){
-            var enemies = _enemyQuery.ToEntityArray(Allocator.Temp);
-            if (enemies.Length == 0) return;
-
-            var settings = _manager.GetComponentData
-                <MoveSettingsComponent>(SystemHandle);
-
-            var transforms = _enemyQuery.ToComponentDataArray
-                <LocalTransform>(Allocator.Temp);
-
+            var settings = _manager.GetComponentData<MoveSettingsComponent>(SystemHandle);
+            var ecb = _esECB.CreateCommandBuffer(_world.Unmanaged).AsParallelWriter();
             var deltaTime = SystemAPI.Time.DeltaTime;
 
-            for (var i = 0; i < enemies.Length; i++){
-                var enemy     = enemies[i];
-                var transform = transforms[i];
-
+            Entities.WithAll<EnemyTag>().WithAll<SpawnedTag>()
+            .ForEach((int entityInQueryIndex, ref LocalTransform transform, in Entity enemy) => {
                 transform.Position.y -= settings.Speed * deltaTime;
                 transform.RotateZ(settings.Torque * deltaTime);
 
@@ -61,10 +52,11 @@ namespace SpaceShooter.ECS
                     transform.Position.y = 0;
                     transform.Position.z = 2.56f;
 
-                    _manager.RemoveComponent<SpawnedTag>(enemy);
+                    ecb.RemoveComponent<EnemyTag>(
+                        entityInQueryIndex, enemy
+                    );
                 }
-                _manager.SetComponentData(enemy, transform);
-            }
+            }).ScheduleParallel();
         }
 
     }

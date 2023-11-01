@@ -7,7 +7,6 @@ using Unity.Burst;
 namespace SpaceShooter.ECS
 {
     [DisableAutoCreation][BurstCompile]
-    //[CreateAfter(typeof(PlayerSpawnSystem))]
     public partial class EnemySpawnSystem : SystemBase
     {
         private EntityManager _manager    = default;
@@ -30,7 +29,7 @@ namespace SpaceShooter.ECS
             _manager.AddComponentData(SystemHandle, 
                 new PoolSettingsComponent(){
                     GrowthCount = 20,
-                    MaxCount    = 100
+                    MaxCount    = 10000
                 }
             );
             _poolQuery = new EntityQueryBuilder(Allocator.Temp)
@@ -55,7 +54,8 @@ namespace SpaceShooter.ECS
             var settings = _manager.GetComponentData
                 <PoolSettingsComponent>(SystemHandle);
 
-            for (int i = 0; i < settings.GrowthCount; i++){
+            //for (int i = 0; i < settings.GrowthCount; i++){
+            for (int i = 0; i < 5000; i++){
                 _factory.Create(_position, _rotation);
             }
         }

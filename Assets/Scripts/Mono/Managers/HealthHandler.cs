@@ -5,6 +5,7 @@ namespace SpaceShooter.Mono
 {
     public class HealthHandler : MonoBehaviour
     {
+        [SF] private bool _immortal = false;
         [SF] private GameObject _gameOver = null;
         [SF] private GameObject[] _hearts = null;
         
@@ -25,6 +26,8 @@ namespace SpaceShooter.Mono
 // HEALTH HANDLING
 
         public void Damage(){
+            if (_immortal) return;
+
             _hearts[--_health].SetActive(false);
             if (_health > 0) return;
 
