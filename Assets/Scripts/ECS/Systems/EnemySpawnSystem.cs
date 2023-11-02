@@ -29,7 +29,7 @@ namespace SpaceShooter.ECS
             _manager.AddComponentData(SystemHandle, 
                 new PoolSettingsComponent(){
                     GrowthCount = 20,
-                    MaxCount    = 10000
+                    MaxCount    = 1000
                 }
             );
             _poolQuery = new EntityQueryBuilder(Allocator.Temp)
@@ -54,8 +54,7 @@ namespace SpaceShooter.ECS
             var settings = _manager.GetComponentData
                 <PoolSettingsComponent>(SystemHandle);
 
-            //for (int i = 0; i < settings.GrowthCount; i++){
-            for (int i = 0; i < 5000; i++){
+            for (int i = 0; i < settings.GrowthCount; i++){
                 _factory.Create(_position, _rotation);
             }
         }

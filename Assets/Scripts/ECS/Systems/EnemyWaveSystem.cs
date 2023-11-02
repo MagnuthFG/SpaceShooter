@@ -32,7 +32,7 @@ namespace SpaceShooter.ECS
                 YStart = 7.68f,
                 MinMaxOffset = new float2(1.6f, 2.56f),
 
-                StartCount = 5000,
+                StartCount = 1,
                 Increase = 0.675f,
             };
             int stacks = (int)((settings.FieldExtent * 2) / settings.LaneWidth);
