@@ -3,7 +3,7 @@
 Created an arcade-like top down space shooter with minimalistic 2D visuals. <br />
 I used both Monobehaviour and ECS in this project. Mono used 2D Physics while ECS used AABB calculations.
 
-## Minimum Optimization
+## [Minimum Optimization](https://github.com/MagnuthFG/SpaceShooter/releases/tag/Minimal-Optimization)
 I first created a standard Monobehaviour version, using pooling for projectiles and enemies to lower the amount of work the garbage
 collection had to do and prevent potential lag spikes, instantiating and deleting objects.
 
@@ -17,7 +17,7 @@ as well as lowered the cost of moving between C++ and C#.
 I also toggled game objects when moving them in and out of the object pools, which could have been optimized as well to prevent unnecesary
 looping over components and toggling them and firing off on enabled and on disabled event calls (and other stuff on units own components).
 
-## First Optimization
+## [First Optimization](https://github.com/MagnuthFG/SpaceShooter/releases/tag/First-Optimization)
 I decided to replaced the player, enemies and projectiles into ECS entities, because I wanted to messure the difference between them. 
 At first I didn't see any benefit, which was most likely because I treated it like Mono, using queries and forloops rather then jobs and
 entities.foreach. Only when I reached high enemy counts, is when I started seeing the benefits of using a data oriented approach.
@@ -26,7 +26,7 @@ I used no physics in this version, and instead does AABB checks by reusing the w
 This could have been optimized further by using a radius check rather then boundary check to reduce on mathematical calculations, 
 but in the end felt this worked just fine.
 
-## Second optimization
+## [Second Optimization](https://github.com/MagnuthFG/SpaceShooter/releases/tag/Second-Optimization)
 The most costly calculation was my EnemyMove and EnemyDamage systems at around 37% and 20% 10ms. Changing my code to use entity 
 foreach and parallel multithreading to spread the work on multiple cores lowered both to about 1% and increased fps from 90-100 10ms to 240-260 5ms.
 
